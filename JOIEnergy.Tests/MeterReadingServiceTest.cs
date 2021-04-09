@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JOIEnergy.Services;
 using JOIEnergy.Domain;
 using Xunit;
+using System;
 
 namespace JOIEnergy.Tests
 {
@@ -23,7 +23,8 @@ namespace JOIEnergy.Tests
         }
 
         [Fact]
-        public void GivenMeterIdThatDoesNotExistShouldReturnNull() {
+        public void GivenMeterIdThatDoesNotExistShouldReturnNull()
+        {
             Assert.Empty(meterReadingService.GetReadings("unknown-id"));
         }
 
@@ -39,5 +40,20 @@ namespace JOIEnergy.Tests
             Assert.Equal(3, electricityReadings.Count);
         }
 
+        [Fact]
+        public void GivenMeterReadingThatExistsShouldReturnMeterReadingsForGivenTimePeriod()
+        {
+            DateTime today = DateTime.Now;
+            meterReadingService.StoreReadings("random-id", new List<ElectricityReading>() {
+                new ElectricityReading() { Time= today.AddDays(2) },
+                new ElectricityReading() { Time= today.AddDays(1) },
+                new ElectricityReading() { Time= today },
+                new ElectricityReading() { Time= today.AddDays(-1) },
+                new ElectricityReading() { Time= today.AddDays(-2) },
+                new ElectricityReading() { Time= today.AddDays(-3) },
+                new ElectricityReading() { Time= today.AddDays(-4) },
+            });
+            Assert.Equal(4, meterReadingService.GetReadings("random-id", today.AddDays(-2), today.AddDays(1)).Count);
+        }
     }
 }
