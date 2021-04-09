@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JOIEnergy.Domain;
+using JOIEnergy.Enums;
 
 namespace JOIEnergy.Services
 {
@@ -49,6 +50,12 @@ namespace JOIEnergy.Services
                 return new Dictionary<string, decimal>();
             }
             return _pricePlans.ToDictionary(plan => plan.EnergySupplier.ToString(), plan => calculateCost(electricityReadings, plan));
+        }
+
+        public decimal GetConsumptionCost(List<ElectricityReading> electricityReadings, Supplier supplier)
+        {
+            PricePlan pricePlan = _pricePlans.Find(x => x.EnergySupplier == supplier);
+            return calculateCost(electricityReadings, pricePlan);
         }
     }
 }
