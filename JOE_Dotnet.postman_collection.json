@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "5dec8c21-fc06-44ef-9189-3e80e0a86723",
+		"name": "JOE Dotnet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "compare-all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/price-plans/compare-all/smart-meter-0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"price-plans",
+						"compare-all",
+						"smart-meter-0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Readings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/readings/read/smart-meter-0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"readings",
+						"read",
+						"smart-meter-0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store Readings",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"smartMeterId\": \"smart-meter-0\",\n    \"electricityReadings\": [\n        {\n            \"time\": \"2020-11-11T08:00:00.0000000+00:00\",\n            \"reading\": 0.0503\n        },\n        {\n            \"time\": \"2020-11-12T08:00:00.0000000+00:00\",\n            \"reading\": 0.0213\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/readings/store",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"readings",
+						"store"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
